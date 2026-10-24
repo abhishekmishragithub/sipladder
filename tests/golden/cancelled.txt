@@ -1,0 +1,8 @@
+SIP ladder (sanitized; identities, addresses, headers and SDP omitted)
+Result: cancelled
+Setup: unknown
+RTP: not observed
++0.000s | endpoint 1 -> endpoint 2 | INVITE | CSeq 1 INVITE
++0.100s | endpoint 1 -> endpoint 2 | CANCEL | CSeq 1 CANCEL
++0.200s | endpoint 2 -> endpoint 1 | 200 (CANCEL) | CSeq 1 CANCEL
++0.300s | endpoint 2 -> endpoint 1 | 487 (INVITE) | CSeq 1 INVITE

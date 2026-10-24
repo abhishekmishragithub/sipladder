@@ -1,0 +1,5 @@
+SIP ladder (sanitized; identities, addresses, headers and SDP omitted)
+Result: timeout
+Setup: unknown
+RTP: not observed
++0.000s | endpoint 1 -> endpoint 2 | INVITE | CSeq 1 INVITE

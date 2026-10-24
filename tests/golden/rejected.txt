@@ -1,0 +1,6 @@
+SIP ladder (sanitized; identities, addresses, headers and SDP omitted)
+Result: rejected
+Setup: unknown
+RTP: not observed
++0.000s | endpoint 1 -> endpoint 2 | INVITE | CSeq 1 INVITE
++0.100s | endpoint 2 -> endpoint 1 | 486 (INVITE) | CSeq 1 INVITE

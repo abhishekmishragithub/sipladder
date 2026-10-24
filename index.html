@@ -1,0 +1,148 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <meta
+      http-equiv="Content-Security-Policy"
+      content="default-src 'none'; script-src 'self'; style-src 'self'; img-src 'self' data:; font-src 'none'; connect-src 'none'; worker-src blob:; object-src 'none'; base-uri 'none'; form-action 'none'"
+    />
+    <meta name="color-scheme" content="dark light" />
+    <meta
+      name="description"
+      content="A private, offline SIP call ladder. Read pcap and pcapng captures entirely in your browser."
+    />
+    <title>sipladder — follow the conversation</title>
+    <link rel="icon" href="data:," />
+  </head>
+  <body>
+    <div id="app">
+      <header>
+        <a class="brand" href="./" aria-label="sipladder home"
+          ><span class="mark">s<span>↗</span></span
+          >sipladder<span class="version">LOCAL / V1</span></a
+        >
+        <div class="header-actions">
+          <span class="privacy"><span>●</span> nothing leaves this page</span
+          ><button id="theme" aria-label="Switch color theme">
+            ◐ <span>Theme</span>
+          </button>
+        </div>
+      </header>
+      <main>
+        <section id="intro">
+          <div class="eyebrow">PACKET CAPTURE → CLARITY</div>
+          <h1>Find where the<br />conversation <em>stopped.</em></h1>
+          <p class="lede">
+            Drop a capture. Follow the SIP call.<br />Your packets stay on your
+            machine. Always.
+          </p>
+          <div id="dropzone" class="dropzone">
+            <div class="file-icon">↓</div>
+            <h2>Drop your .pcap or .pcapng here</h2>
+            <p>
+              or <label for="file" class="browse">browse files</label>
+              <span>· Processed locally in your browser</span>
+            </p>
+            <input
+              id="file"
+              type="file"
+              accept=".pcap,.pcapng,.cap"
+              aria-label="Open packet capture"
+            />
+            <div class="drop-footer">
+              <span>ETHERNET / LINUX SLL / RAW IP</span
+              ><span>UDP + TCP · IPv4 + IPv6</span>
+            </div>
+          </div>
+          <div class="intro-bottom">
+            <button id="demo" class="text-button">
+              Try a sample call <span>↗</span></button
+            ><span>No installs. No accounts. No uploads.</span>
+          </div>
+          <div class="features">
+            <div>
+              <b>01</b>
+              <h3>See the whole exchange</h3>
+              <p>Requests, responses, and the silence in between.</p>
+            </div>
+            <div>
+              <b>02</b>
+              <h3>Look closer</h3>
+              <p>Full SIP headers, SDP, and media observations.</p>
+            </div>
+            <div>
+              <b>03</b>
+              <h3>Share the signal</h3>
+              <p>Copy an identity-free ladder into your ticket.</p>
+            </div>
+          </div>
+        </section>
+        <section id="workspace" hidden>
+          <div class="workspace-heading">
+            <div>
+              <div class="eyebrow">CAPTURE WORKSPACE</div>
+              <h1 id="filename"></h1>
+              <p id="capture-info"></p>
+            </div>
+            <div>
+              <button id="replace">Open another capture</button
+              ><button id="clear">Clear capture</button>
+            </div>
+          </div>
+          <div id="warnings"></div>
+          <div class="workspace-grid">
+            <aside class="calls">
+              <h2>Conversations <span id="call-count"></span></h2>
+              <div id="dialogs"></div>
+            </aside>
+            <section class="conversation" aria-label="Selected conversation">
+              <div id="summary"></div>
+              <div class="toolbar">
+                <div role="group" aria-label="Conversation view">
+                  <button id="svg-view" aria-pressed="true">Ladder</button
+                  ><button id="table-view" aria-pressed="false">
+                    Text table
+                  </button>
+                </div>
+                <button id="copy">Copy sanitized ladder ↗</button>
+              </div>
+              <div id="diagnoses"></div>
+              <p class="keyboard-hint">
+                Select an arrow to inspect · ↑ / ↓ move between messages
+              </p>
+              <div
+                id="ladder"
+                tabindex="0"
+                role="region"
+                aria-label="SIP ladder; use up and down arrow keys"
+              ></div>
+              <div id="table" hidden></div>
+              <div id="pagination"></div>
+            </section>
+            <aside id="detail" aria-label="Message details">
+              <div class="detail-title">
+                <h2>Message inspector</h2>
+                <span>RAW / LOCAL ONLY</span>
+              </div>
+              <div id="detail-content">
+                <p>Select a message to inspect its headers and body.</p>
+              </div>
+            </aside>
+          </div>
+        </section>
+        <div id="status" role="status" aria-live="polite"></div>
+        <div id="error" role="alert" hidden></div>
+      </main>
+      <footer>
+        <span
+          >sipladder <span class="muted">/</span> A little less packet
+          archaeology.</span
+        ><span
+          >CLIENT-SIDE ONLY <span class="footer-dot">●</span> MIT LICENSE</span
+        >
+      </footer>
+    </div>
+    <script type="module" src="/src/main.ts"></script>
+  </body>
+</html>

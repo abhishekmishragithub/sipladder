@@ -1,0 +1,11 @@
+SIP ladder (sanitized; identities, addresses, headers and SDP omitted)
+Result: answered
+Setup: 0.480s
+RTP: both directions
++0.000s | endpoint 1 -> endpoint 2 | INVITE | CSeq 1 INVITE
++0.020s | endpoint 2 -> endpoint 1 | 100 (INVITE) | CSeq 1 INVITE
++0.120s | endpoint 2 -> endpoint 1 | 180 (INVITE) | CSeq 1 INVITE
++0.480s | endpoint 2 -> endpoint 1 | 200 (INVITE) | CSeq 1 INVITE
++0.500s | endpoint 1 -> endpoint 2 | ACK | CSeq 1 ACK
++5.000s | endpoint 1 -> endpoint 2 | BYE | CSeq 2 BYE
++5.020s | endpoint 2 -> endpoint 1 | 200 (BYE) | CSeq 2 BYE
