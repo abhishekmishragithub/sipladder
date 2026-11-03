@@ -264,13 +264,21 @@ function renderLadder(d: Dialog) {
       tabindex: 0,
       "aria-label": `${i + 1}. ${m.start}, ${endpoint(m.src)} to ${endpoint(m.dst)}, ${(m.time - d.messages[0].time).toFixed(3)} seconds`,
     });
+    svg.append(
+      el("line", { x1: 8, x2: 20, y1: y, y2: y, class: "timing-tick" }),
+      el(
+        "text",
+        { x: 24, y: y + 3, class: "timing-label" },
+        `+${(m.time - d.messages[0].time).toFixed(3)}`,
+      ),
+    );
     g.append(
       el("rect", {
         x: 8,
         y: y - 26,
         width: width - 16,
         height: 54,
-        rx: 6,
+        rx: 2,
         class: "row-hit",
       }),
       el("line", { x1: a, y1: y, x2: b, y2: y, class: "arrow" }),

@@ -2,7 +2,7 @@
 
 **Drop a packet capture. See the SIP conversation. Nothing leaves this page.**
 
-A small, static SIP debugging tool for support engineers, telecom integrators, and voice developers. No desktop installation, accounts, analytics, or upload endpoint. Capture parsing runs in a Web Worker; a strict Content Security Policy blocks network connections.
+An engineering-paper SIP workspace with a secondary blueprint theme. A small, static SIP debugging tool for support engineers, telecom integrators, and voice developers. No desktop installation, accounts, analytics, or upload endpoint. Capture parsing runs in a Web Worker; a strict Content Security Policy blocks network connections.
 
 ![Drop a capture, follow the ladder, inspect a message](docs/demo.gif)
 

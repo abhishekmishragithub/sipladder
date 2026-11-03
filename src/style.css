@@ -1,22 +1,53 @@
+/* Engineering paper: all semantic inks meet AA on paper and panel. */
 :root {
-  font-family:
-    Inter,
-    ui-sans-serif,
-    -apple-system,
-    BlinkMacSystemFont,
-    "Segoe UI",
-    sans-serif;
-  color: #e9edf0;
-  background: #101516;
-  --bg: #101516;
-  --surface: #171e20;
-  --line: #303b3e;
-  --muted: #9caeae;
-  --accent: #c0e66b;
-  --ink: #e9edf0;
-  --good: #90d7ab;
-  --bad: #ff9693;
+  font-family: "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+  --bg: #f5f1e7;
+  --surface: #ebe6d9;
+  --line: #7c817c;
+  --muted: #575f61;
+  --accent: #175783;
+  --ink: #24343d;
+  --good: #24623e;
+  --bad: #a33228;
+  --redirect: #805218;
+  --grid: #1757830b;
+  --wash: #17578310;
+  --annotation: #a332280b;
+  color: var(--ink);
+  background: var(--bg);
+  color-scheme: light;
+}
+:root[data-theme="dark"] {
+  --bg: #182c3a;
+  --surface: #203746;
+  --line: #718995;
+  --muted: #b3c3c9;
+  --accent: #8bc7ed;
+  --ink: #edf0e7;
+  --good: #99d3ac;
+  --bad: #ffaaa0;
+  --redirect: #e7c18b;
+  --grid: #8bc7ed0c;
+  --wash: #8bc7ed16;
+  --annotation: #ffaaa00b;
   color-scheme: dark;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme]) {
+    --bg: #182c3a;
+    --surface: #203746;
+    --line: #718995;
+    --muted: #b3c3c9;
+    --accent: #8bc7ed;
+    --ink: #edf0e7;
+    --good: #99d3ac;
+    --bad: #ffaaa0;
+    --redirect: #e7c18b;
+    --grid: #8bc7ed0c;
+    --wash: #8bc7ed16;
+    --annotation: #ffaaa00b;
+    color-scheme: dark;
+  }
 }
 * {
   box-sizing: border-box;
@@ -38,11 +69,11 @@ button {
   color: var(--ink);
   background: transparent;
   border: 1px solid var(--line);
-  border-radius: 6px;
-  padding: 9px 13px;
+  border-radius: 2px;
+  padding: 8px 12px;
 }
 button:hover {
-  background: var(--line);
+  background: var(--wash);
 }
 button:focus-visible,
 a:focus-visible,
@@ -60,7 +91,7 @@ a {
   display: none !important;
 }
 header {
-  height: 90px;
+  height: 80px;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -70,7 +101,7 @@ header {
 .brand {
   display: flex;
   align-items: center;
-  gap: 11px;
+  gap: 12px;
   font-size: 24px;
   font-weight: 650;
   letter-spacing: -1px;
@@ -81,8 +112,8 @@ header {
   justify-content: center;
   width: 33px;
   height: 34px;
-  border: 1px solid #729347;
-  border-radius: 8px;
+  border: 1px solid var(--accent);
+  border-radius: 2px;
   font-family: monospace;
   color: var(--accent);
   font-size: 27px;
@@ -91,7 +122,7 @@ header {
   font-size: 19px;
 }
 .version {
-  font: 10px monospace;
+  font-size: 10px;
   letter-spacing: 1px;
   color: var(--muted);
   margin-left: 12px;
@@ -101,15 +132,15 @@ header {
 .header-actions {
   display: flex;
   align-items: center;
-  gap: 26px;
+  gap: 24px;
 }
 .privacy {
-  font: 12px monospace;
+  font-size: 12px;
   color: var(--muted);
 }
 .privacy span {
   color: var(--accent);
-  margin-right: 7px;
+  margin-right: 8px;
 }
 #theme {
   border: 0;
@@ -123,10 +154,10 @@ main {
 }
 #intro {
   max-width: 1000px;
-  margin: 74px auto 0;
+  margin: 48px auto 0;
 }
 .eyebrow {
-  font: 10px monospace;
+  font-size: 10px;
   color: var(--accent);
   letter-spacing: 1.8px;
 }
@@ -135,10 +166,14 @@ h1 {
   font-weight: 500;
   line-height: 1.08;
   letter-spacing: -3px;
-  margin: 21px 0;
+  margin: 20px 0;
 }
 h1 em {
-  font-family: Georgia, serif;
+  font-family: inherit;
+  font-style: normal;
+  text-decoration: underline;
+  text-decoration-thickness: 2px;
+  text-underline-offset: 8px;
   font-weight: 400;
   color: var(--accent);
 }
@@ -146,36 +181,36 @@ h1 em {
   color: var(--muted);
   font-size: 17px;
   line-height: 1.7;
-  margin: 22px 0 35px;
+  margin: 24px 0 36px;
 }
 .dropzone {
   position: relative;
-  border: 1px dashed #536344;
-  border-radius: 12px;
-  background: linear-gradient(110deg, #c0e66b07, transparent);
-  padding: 30px 30px 0;
+  border: 1px dashed var(--accent);
+  border-radius: 2px;
+  background: var(--surface);
+  padding: 32px 32px 0;
   text-align: center;
   transition: background 0.15s;
 }
 .dropzone.dragging {
-  background: #c0e66b22;
+  background: var(--wash);
   border-color: var(--accent);
 }
 .file-icon {
   color: var(--accent);
   font: 32px monospace;
-  margin: 0 auto 15px;
+  margin: 0 auto 16px;
   width: 48px;
   height: 48px;
   display: grid;
   place-items: center;
   border: 1px solid var(--line);
-  border-radius: 10px;
+  border-radius: 2px;
 }
 .dropzone h2 {
   font-weight: 500;
   font-size: 20px;
-  margin: 10px 0;
+  margin: 8px 0;
 }
 .dropzone p {
   font-size: 13px;
@@ -200,12 +235,12 @@ h1 em {
 }
 .drop-footer {
   border-top: 1px solid var(--line);
-  margin-top: 30px;
+  margin-top: 32px;
   padding: 16px 0;
   display: flex;
   justify-content: space-between;
   color: var(--muted);
-  font: 9px monospace;
+  font-size: 10px;
   letter-spacing: 1px;
 }
 .intro-bottom {
@@ -214,7 +249,7 @@ h1 em {
   align-items: center;
   font-size: 11px;
   color: var(--muted);
-  margin-top: 13px;
+  margin-top: 12px;
 }
 .text-button {
   border: 0;
@@ -228,17 +263,17 @@ h1 em {
 .features {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 40px;
-  padding: 46px 0 52px;
+  gap: 32px;
+  padding: 32px 0 40px;
 }
 .features b {
-  font: 10px monospace;
+  font-size: 10px;
   color: var(--muted);
 }
 .features h3 {
   font-size: 14px;
   font-weight: 500;
-  margin: 13px 0 8px;
+  margin: 12px 0 8px;
 }
 .features p {
   font-size: 12px;
@@ -248,7 +283,7 @@ h1 em {
 }
 footer {
   margin: 0 5vw;
-  padding: 25px 0;
+  padding: 24px 0;
   border-top: 1px solid var(--line);
   display: flex;
   justify-content: space-between;
@@ -256,7 +291,7 @@ footer {
   color: var(--muted);
 }
 footer > span:last-child {
-  font: 9px monospace;
+  font-size: 10px;
   letter-spacing: 1px;
 }
 .footer-dot {
@@ -267,7 +302,7 @@ footer > span:last-child {
   color: var(--muted);
 }
 #status {
-  font: 12px monospace;
+  font-size: 12px;
   color: var(--muted);
   padding: 12px 0;
   overflow-wrap: anywhere;
@@ -283,7 +318,7 @@ footer > span:last-child {
   align-items: center;
   justify-content: space-between;
   gap: 20px;
-  padding: 38px 0 20px;
+  padding: 24px 0 16px;
 }
 .workspace-heading h1 {
   font-size: 30px;
@@ -291,20 +326,20 @@ footer > span:last-child {
   overflow-wrap: anywhere;
 }
 .workspace-heading p {
-  font: 12px monospace;
+  font-size: 12px;
   color: var(--muted);
 }
 .workspace-heading button {
   font-size: 12px;
-  margin: 3px;
+  margin: 4px;
 }
 .workspace-grid {
   display: grid;
   grid-template-columns: 190px minmax(0, 1fr) 320px;
   border: 1px solid var(--line);
-  border-radius: 9px;
+  border-radius: 2px;
   min-height: 620px;
-  margin-bottom: 25px;
+  margin-bottom: 24px;
   overflow: hidden;
 }
 .calls {
@@ -313,8 +348,8 @@ footer > span:last-child {
   background: var(--surface);
 }
 .calls h2 {
-  font: 12px monospace;
-  margin: 2px 0 23px;
+  font-size: 12px;
+  margin: 4px 0 24px;
 }
 .calls h2 span {
   color: var(--muted);
@@ -323,8 +358,8 @@ footer > span:last-child {
   display: flex;
   flex-direction: column;
   text-align: left;
-  gap: 12px;
-  padding: 16px 10px;
+  gap: 8px;
+  padding: 12px 8px;
   width: 100%;
   margin-bottom: 8px;
   border-color: transparent;
@@ -338,17 +373,17 @@ footer > span:last-child {
   font-size: 11px;
 }
 .dialog-card.active {
-  border-color: #637d3d;
-  background: #bce36509;
+  border-color: var(--accent);
+  background: var(--wash);
 }
 .conversation {
   min-width: 0;
-  padding: 23px 20px;
+  padding: 24px 20px;
 }
 #summary h2 {
   font: 16px monospace;
   overflow-wrap: anywhere;
-  margin: 14px 0 22px;
+  margin: 16px 0 24px;
 }
 .chips {
   display: flex;
@@ -357,11 +392,11 @@ footer > span:last-child {
 }
 .chip {
   border: 1px solid var(--line);
-  border-radius: 5px;
-  padding: 9px 12px;
+  border-radius: 2px;
+  padding: 8px 12px;
   display: flex;
   flex-direction: column;
-  gap: 6px;
+  gap: 8px;
 }
 .chip span {
   font-size: 10px;
@@ -374,31 +409,31 @@ footer > span:last-child {
 .toolbar {
   display: flex;
   justify-content: space-between;
-  gap: 10px;
-  margin: 25px 0 16px;
+  gap: 8px;
+  margin: 24px 0 16px;
   flex-wrap: wrap;
 }
 .toolbar button {
   font-size: 11px;
 }
 .toolbar [aria-pressed="true"] {
-  background: var(--line);
+  background: var(--wash);
   color: var(--accent);
 }
 .diagnosis,
 .warning {
   font-size: 12px;
   line-height: 1.7;
-  padding: 10px 14px;
-  border-left: 2px solid #e4bd6e;
-  background: #e4bd6e08;
-  color: #e4bd6e;
+  padding: 8px 16px;
+  border-left: 2px solid var(--bad);
+  background: var(--annotation);
+  color: var(--bad);
 }
 .warning {
   margin: 8px 0;
 }
 .keyboard-hint {
-  font: 10px monospace;
+  font-size: 10px;
   color: var(--muted);
   margin-top: 20px;
 }
@@ -420,10 +455,10 @@ svg {
 }
 .message {
   cursor: pointer;
-  color: var(--ink);
+  color: var(--accent);
 }
 .message.provisional {
-  color: var(--muted);
+  color: var(--accent);
 }
 .message.success {
   color: var(--good);
@@ -432,14 +467,14 @@ svg {
   color: var(--bad);
 }
 .message.redirect {
-  color: #e4bd6e;
+  color: var(--redirect);
 }
 .row-hit {
   fill: transparent;
 }
 .selected .row-hit,
 .message:hover .row-hit {
-  fill: #a5bbad13;
+  fill: var(--wash);
 }
 .arrow,
 .arrowhead {
@@ -458,21 +493,21 @@ svg {
 #detail {
   border-left: 1px solid var(--line);
   background: var(--surface);
-  padding: 22px 17px;
+  padding: 24px 16px;
   min-width: 0;
 }
 .detail-title {
   border-bottom: 1px solid var(--line);
   padding-bottom: 20px;
-  margin-bottom: 22px;
+  margin-bottom: 24px;
 }
 .detail-title h2 {
   font-size: 13px;
   font-weight: 500;
-  margin: 0 0 10px;
+  margin: 0 0 8px;
 }
 .detail-title span {
-  font: 9px monospace;
+  font-size: 10px;
   color: var(--muted);
 }
 #detail-content h3 {
@@ -489,7 +524,7 @@ pre {
   white-space: pre-wrap;
   overflow-wrap: anywhere;
   font: 11px/1.8 monospace;
-  margin-top: 22px;
+  margin-top: 24px;
 }
 #table {
   overflow: auto;
@@ -503,55 +538,20 @@ table {
 td,
 th {
   border-bottom: 1px solid var(--line);
-  padding: 10px;
+  padding: 8px;
   text-align: left;
 }
 caption {
   text-align: left;
   color: var(--muted);
-  padding: 10px;
+  padding: 8px;
 }
 td button {
-  font-size: 10px;
-}
-:root[data-theme="light"] {
-  --bg: #f6f7f2;
-  --surface: #eff1e9;
-  --line: #d1d8ce;
-  --muted: #57645b;
-  --accent: #466b11;
-  --ink: #1e2920;
-  --good: #287445;
-  --bad: #a42a26;
-  background: var(--bg);
-  color: var(--ink);
-  color-scheme: light;
-}
-:root[data-theme="light"] .diagnosis,
-:root[data-theme="light"] .warning {
-  color: #79531a;
-}
-:root[data-theme="light"] .request {
-  color: #181d19;
-}
-@media (prefers-color-scheme: light) {
-  :root:not([data-theme]) {
-    --bg: #f6f7f2;
-    --surface: #eff1e9;
-    --line: #d1d8ce;
-    --muted: #57645b;
-    --accent: #466b11;
-    --ink: #1e2920;
-    --good: #287445;
-    --bad: #a42a26;
-    background: var(--bg);
-    color: var(--ink);
-    color-scheme: light;
-  }
-  :root:not([data-theme]) .diagnosis,
-  :root:not([data-theme]) .warning {
-    color: #79531a;
-  }
+  font:
+    10px "Segoe UI",
+    "Helvetica Neue",
+    Arial,
+    sans-serif;
 }
 @media (max-width: 1200px) {
   .workspace-grid {
@@ -582,13 +582,13 @@ td button {
     font-size: 9px;
   }
   .header-actions {
-    gap: 6px;
+    gap: 8px;
   }
   main {
     padding: 0 5vw;
   }
   #intro {
-    margin-top: 45px;
+    margin-top: 44px;
   }
   h1 {
     letter-spacing: -2px;
@@ -597,7 +597,7 @@ td button {
     font-size: 15px;
   }
   .dropzone {
-    padding: 22px 14px 0;
+    padding: 24px 16px 0;
   }
   .dropzone h2 {
     font-size: 16px;
@@ -607,13 +607,13 @@ td button {
     margin-top: 12px;
   }
   .drop-footer {
-    gap: 14px;
+    gap: 16px;
     font-size: 8px;
     text-align: left;
   }
   .features {
-    gap: 18px;
-    padding: 35px 0;
+    gap: 16px;
+    padding: 36px 0;
   }
   .features h3 {
     font-size: 12px;
@@ -644,7 +644,7 @@ td button {
   #dialogs {
     display: flex;
     overflow: auto;
-    gap: 10px;
+    gap: 8px;
   }
   .dialog-card {
     min-width: 150px;
@@ -658,9 +658,9 @@ td button {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 10px;
+  gap: 8px;
   margin-top: 12px;
-  font: 11px monospace;
+  font-size: 11px;
   color: var(--muted);
 }
 #pagination:empty {
@@ -669,4 +669,117 @@ td button {
 button:disabled {
   opacity: 0.4;
   cursor: default;
+}
+
+/* Drawing conventions: grid belongs exclusively to the plotted workspace. */
+#ladder {
+  background-image:
+    linear-gradient(var(--grid) 1px, transparent 1px),
+    linear-gradient(90deg, var(--grid) 1px, transparent 1px);
+  background-size: 16px 16px;
+}
+.privacy {
+  border: 3px double var(--accent);
+  padding: 8px 12px;
+  color: var(--accent);
+  font-size: 11px;
+  font-weight: 650;
+  letter-spacing: 0.5px;
+  transform: rotate(-2deg);
+}
+.privacy span {
+  margin-right: 4px;
+}
+.features > div {
+  border-top: 2px solid var(--line);
+  padding-top: 16px;
+}
+.chips {
+  gap: 0;
+  border: 1px solid var(--line);
+}
+.chip {
+  border: 0;
+  border-right: 1px solid var(--line);
+  border-radius: 0;
+  padding: 8px 12px;
+  flex: 1;
+}
+.chip:last-child {
+  border-right: 0;
+}
+.chip strong {
+  font-weight: 600;
+}
+.calls h2,
+.detail-title h2 {
+  font-weight: 650;
+}
+.diagnosis,
+.warning {
+  border-left: 3px solid var(--bad);
+  border-bottom: 1px dashed var(--bad);
+  color: var(--bad);
+  background: var(--annotation);
+  font-size: 13px;
+}
+.message.failure .arrow {
+  stroke-width: 2;
+}
+.message.provisional .arrow {
+  stroke-dasharray: 5 3;
+}
+.timing-tick {
+  stroke: var(--muted);
+  stroke-width: 1;
+}
+.timing-label {
+  fill: var(--muted);
+  font: 9px monospace;
+}
+.message.selected:focus-visible .row-hit,
+.message:focus-visible .row-hit {
+  stroke: var(--accent);
+  stroke-width: 2;
+}
+.message.selected .row-hit {
+  stroke: var(--accent);
+  stroke-width: 1;
+}
+#detail-content > p {
+  font-family: monospace;
+}
+pre {
+  border-top: 1px solid var(--line);
+  padding-top: 16px;
+}
+th {
+  font-family: "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+  background: var(--surface);
+}
+caption {
+  font-family: "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+}
+a:hover {
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    transition: none !important;
+    scroll-behavior: auto !important;
+  }
+}
+@media (max-width: 650px) {
+  .privacy {
+    max-width: 140px;
+    padding: 4px 8px;
+    font-size: 9px;
+  }
+  .chip {
+    flex: 1 0 50%;
+    border-bottom: 1px solid var(--line);
+  }
 }

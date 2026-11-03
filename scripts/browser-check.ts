@@ -17,7 +17,7 @@ const browser = await chromium.launch({
 });
 const context = await browser.newContext({
   viewport: { width: 1440, height: 1080 },
-  colorScheme: "dark",
+  colorScheme: "light",
   permissions: ["clipboard-read", "clipboard-write"],
 });
 const page = await context.newPage();
@@ -26,6 +26,12 @@ page.on("pageerror", (e) => errors.push(e.message));
 await page.goto("http://127.0.0.1:4173/");
 await page.waitForLoadState("networkidle");
 await page.screenshot({ path: "docs/screenshots/01-drop.png", fullPage: true });
+await page.emulateMedia({ colorScheme: "dark" });
+assert.equal(
+  await page.locator("html").evaluate((el) => getComputedStyle(el).colorScheme),
+  "dark",
+);
+await page.emulateMedia({ colorScheme: "light" });
 const requests: string[] = [];
 page.on("request", (r) => {
   requests.push(r.url());
@@ -66,6 +72,22 @@ await page.screenshot({
   path: "docs/screenshots/03-detail.png",
   fullPage: true,
 });
+// Inspect the same plotted data in blueprint, then restore paper for README captures.
+await page.getByRole("button", { name: "Switch color theme" }).click();
+assert.equal(await page.locator("html").getAttribute("data-theme"), "dark");
+await page.screenshot({
+  path: "docs/screenshots/05-blueprint.png",
+  fullPage: true,
+});
+await page.getByRole("button", { name: "Switch color theme" }).click();
+assert.equal(await page.locator("html").getAttribute("data-theme"), "light");
+await page.emulateMedia({ reducedMotion: "reduce" });
+assert.equal(
+  await page
+    .locator("#dropzone")
+    .evaluate((el) => getComputedStyle(el).transitionDuration),
+  "0s",
+);
 await page.getByRole("button", { name: "Text table", exact: true }).click();
 assert.equal(await page.locator("#table tbody tr").count(), 7);
 await page.getByRole("button", { name: "Copy sanitized ladder" }).click();
@@ -159,7 +181,8 @@ assert.equal(await page.locator("#ladder [data-message]").count(), 0);
 assert.equal(await page.locator("#detail-content").innerText(), "");
 
 await page.getByRole("button", { name: "Switch color theme" }).click();
-assert.equal(await page.locator("html").getAttribute("data-theme"), "light");
+assert.equal(await page.locator("html").getAttribute("data-theme"), "dark");
+await page.getByRole("button", { name: "Switch color theme" }).click();
 await page.setViewportSize({ width: 390, height: 844 });
 await page.getByRole("button", { name: "Clear capture", exact: true }).click();
 await page.screenshot({
@@ -170,6 +193,26 @@ assert.equal(
   await page.evaluate(() => document.documentElement.scrollWidth > innerWidth),
   false,
 );
+await page.setViewportSize({ width: 1440, height: 1080 });
+await page.locator("#file").setInputFiles("tests/corpus/rejected.pcap");
+await page.locator("#status").filter({ hasText: "Capture ready." }).waitFor();
+assert.ok((await page.locator("#ladder .failure").count()) > 0);
+await page.screenshot({
+  path: "docs/screenshots/06-table.png",
+  fullPage: true,
+});
+await page.getByRole("button", { name: "Ladder", exact: true }).click();
+await page.screenshot({
+  path: "docs/screenshots/07-rejected.png",
+  fullPage: true,
+});
+await page.locator("#file").setInputFiles("tests/corpus/timeout.pcap");
+await page.locator("#status").filter({ hasText: "Capture ready." }).waitFor();
+assert.ok((await page.locator(".diagnosis").count()) > 0);
+await page.screenshot({
+  path: "docs/screenshots/08-diagnosis.png",
+  fullPage: true,
+});
 assert.deepEqual(errors, []);
 console.log(
   "Browser checks passed: drop, worker, detail, keyboard, table, clipboard redaction, CSP, clear, invalid file, 4MB capture pagination, theme and mobile.",
