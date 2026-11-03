@@ -62,3 +62,10 @@ See [corpus and local SIPp/PJSUA capture recipes](docs/corpus.md). Current check
 TypeScript was chosen over Rust/WASM and Pyodide after format research and a local parser benchmark. The project name is provisional; name searches are not legal or domain clearance. Browser alternatives exist, including [SIP Flow](https://www.sipflow.dev/). See [the decision record](docs/design.md).
 
 [MIT license](LICENSE).
+
+## Related tools
+
+[SIP Flow](https://www.sipflow.dev) is a more featureful client-side SIP analyzer: RTP audio playback, sngrep/tshark import, Homer integration, issue detection, share links. If you need those, use it.
+
+sipladder's lane is deliberately narrower: open source you can audit, a CSP (`connect-src 'none'`) that makes "nothing leaves this page" a browser-enforced property rather than a promise, a dependency-free ~25 KB bundle that runs from a local file in air-gapped environments, and a sanitized text export for tickets. Small, verifiable, embeddable.
+
